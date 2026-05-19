@@ -1,1 +1,349 @@
-<!-- index.html -->
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Brokers 2026 專業投資指南 | IBKR 盈透證券推薦優惠</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;700&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* 麥肯錫顧問簡報風格設計 */
+        * { box-sizing: border-box; }
+        body {
+            background-color: #0f172a;
+            color: #f1f5f9;
+            margin: 0;
+            font-family: 'Urbanist', 'Noto Sans TC', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            padding: 40px 0;
+        }
+
+        /* 簡報投影頁面容器 */
+        .slide-container {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 600px;
+            background-color: #0a0f1e;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .slide-container > * { position: relative; z-index: 1; }
+
+        .slide-title {
+            font-size: 38px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 35px;
+            border-left: 6px solid #fbbf24;
+            padding-left: 20px;
+            line-height: 1.2;
+        }
+
+        .content-area {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .title-layout {
+            text-align: center;
+            justify-content: center;
+            height: 100%;
+            padding: 40px 0;
+        }
+
+        .title-layout h1 {
+            font-size: 56px;
+            margin: 0;
+            letter-spacing: -1px;
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .title-layout p {
+            font-size: 20px;
+            color: #94a3b8;
+            margin-top: 25px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        /* 推薦連結按鈕 */
+        .cta-button {
+            display: inline-block;
+            background-color: #fbbf24;
+            color: #0f172a;
+            font-weight: 700;
+            font-size: 20px;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 35px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgba(251, 191, 36, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 25px -5px rgba(251, 191, 36, 0.4);
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .two-column { grid-template-columns: 1fr 1fr; }
+            .title-layout h1 { font-size: 68px; }
+        }
+
+        .tiled-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .tile {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 28px;
+            border-radius: 16px;
+            text-align: left;
+        }
+
+        .tile i {
+            font-size: 36px;
+            color: #fbbf24;
+            margin-bottom: 20px;
+        }
+
+        .tile h3 { font-size: 22px; margin-top: 0; margin-bottom: 12px; }
+        .tile p { font-size: 15px; color: #94a3b8; line-height: 1.6; margin: 0; }
+
+        .highlight-number {
+            font-size: 100px;
+            font-weight: 700;
+            color: #fbbf24;
+            line-height: 1;
+        }
+
+        .number-label {
+            font-size: 26px;
+            color: #ffffff;
+            margin-top: 10px;
+            font-weight: 700;
+        }
+
+        .chart-container { width: 100%; margin-top: 20px; }
+        .bar { display: flex; flex-direction: column; margin-bottom: 25px; }
+        .bar-label { font-weight: 500; margin-bottom: 8px; color: #cbd5e1; }
+        .bar-outer { flex-grow: 1; height: 35px; background: rgba(255, 255, 255, 0.1); border-radius: 20px; overflow: hidden; }
+        .bar-inner { height: 100%; display: flex; align-items: center; padding-left: 20px; font-weight: 700; color: #000; font-size: 14px; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th { text-align: left; padding: 16px; background: rgba(251, 191, 36, 0.1); color: #fbbf24; border-bottom: 2px solid #fbbf24; font-size: 16px; }
+        td { padding: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); font-size: 15px; }
+
+        .image-wrapper { border-radius: 16px; overflow: hidden; height: 300px; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .image-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+
+        .bleed-image-layout { display: grid; grid-template-columns: 1fr; }
+        @media (min-width: 768px) {
+            .bleed-image-layout { grid-template-columns: 1fr 1fr; }
+        }
+        .bleed-text { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+        .bleed-image { height: 100%; min-height: 300px; width: 100%; object-fit: cover; }
+
+    </style>
+</head>
+<body>
+
+<div class="slide-container" id="slide1">
+    <div class="title-layout">
+        <h1>Global Asset Protection</h1>
+        <p>開立全球最大美股券商 IBKR，領取最高 1,000 美金等值股票獎勵。資產離港、規避地緣風險，這是在台灣投資人的資產必修課。</p>
+        <a href="https://ibkr.com/referral/yenjung246" class="cta-button" target="_blank">點此領取 $1,000 美金開戶獎勵 ➔</a>
+    </div>
+</div>
+
+<div class="slide-container" id="slide2">
+    <h2 class="slide-title">為什麼您需要配置 IBKR？</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <p style="font-size: 18px; line-height: 1.8; color: #cbd5e1; margin-top: 0;">
+                    身處台灣，適度將資產配置在海外是「風險管理」的首選。Interactive Brokers (IBKR) 提供的不僅是交易平台，更是您家族資產的安全避風港。
+                </p>
+                <ul style="list-style: none; padding: 0; margin-top: 25px;">
+                    <li style="margin-bottom: 18px; font-size: 16px;"><i class="fa-solid fa-check-circle" style="color:#fbbf24; margin-right: 12px;"></i> 避開地緣政治與戰爭因素造成的資產歸零風險</li>
+                    <li style="margin-bottom: 18px; font-size: 16px;"><i class="fa-solid fa-check-circle" style="color:#fbbf24; margin-right: 12px;"></i> 大額投資同時配置 Schwab 與 IB，有效分散風險</li>
+                    <li style="margin-bottom: 18px; font-size: 16px;"><i class="fa-solid fa-check-circle" style="color:#fbbf24; margin-right: 12px;"></i> 資產受美國法律體系嚴格監管和保護</li>
+                </ul>
+            </div>
+            <div class="image-wrapper">
+                <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80" alt="Global Investment">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide3">
+    <h2 class="slide-title">IBKR 盈透證券三大核心優勢</h2>
+    <div class="content-area">
+        <div class="tiled-content">
+            <div class="tile">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h3>最高安全保障</h3>
+                <p>符合 SEC、FINRA 法規，客戶資產受美國法定的 SIPC 保障，享有高達 50 萬美元資產保險。</p>
+            </div>
+            <div class="tile">
+                <i class="fa-solid fa-money-bill-trend-up"></i>
+                <h3>4.33% 閒置資金利率</h3>
+                <p>美元閒置資金享有 4.33% 高利活存，遠高於台幣 1.2% 定存，且資金隨時可靈活操作不綁約。</p>
+            </div>
+            <div class="tile">
+                <i class="fa-solid fa-calculator"></i>
+                <h3>系統自動退稅</h3>
+                <p>IBKR 會針對預扣的 30% ETF 股息稅進行系統自動退稅，不需自己跟美國政府申請，省時省力。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container bleed-image-layout" id="slide4">
+    <div class="bleed-text">
+        <h2 class="slide-title" style="border: none; padding: 0; margin-bottom: 20px;">大額資金避險首選</h2>
+        <p style="font-size: 18px; color: #cbd5e1; margin-top: 0; line-height: 1.6;">
+            在高通膨時代，持有利率 5% 以上的 3 個月短期美國債券，遠優於台幣定存。
+        </p>
+        <p style="font-size: 15px; color: #94a3b8; margin-top: 10px; line-height: 1.6;">
+            且此收益屬於海外投資獲利，不需要繳納國內所得稅，更支援在帳戶內進行各國貨幣間直接轉換（例如買進歐元），當美元走弱時可完美避險，免去匯回台灣產生的匯差損失。
+        </p>
+    </div>
+    <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=800&q=80" class="bleed-image" alt="Financial Planning">
+</div>
+
+<div class="slide-container" id="slide5">
+    <h2 class="slide-title">頂級防護：美國上市公司券商</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div style="text-align: center;">
+                <div class="highlight-number">$500,000</div>
+                <div class="number-label">SIPC 法定最高資產保險</div>
+                <p style="margin-top: 20px; color: #94a3b8; font-size: 16px;">
+                    盈透證券 (NASDAQ: IBKR) 作為全球最大的券商，定期公布財務報告，資產安全經得起市場最高標準檢驗。
+                </p>
+            </div>
+            <div class="image-wrapper">
+                <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80" alt="Security Vault">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide6">
+    <h2 class="slide-title">投資美國公債：零手續費</h2>
+    <div class="content-area">
+        <div class="chart-container">
+            <div class="bar">
+                <div class="bar-label">台灣本土銀行 / 複委託管道</div>
+                <div class="bar-outer">
+                    <div class="bar-inner" style="width: 85%; background: #ef4444;">收取高達 5% 的高昂手續費</div>
+                </div>
+            </div>
+            <div class="bar">
+                <div class="bar-label">Interactive Brokers (IBKR)</div>
+                <div class="bar-outer">
+                    <div class="bar-inner" style="width: 15%; background: #fbbf24;">$0 手續費 / 競爭力極高</div>
+                </div>
+            </div>
+        </div>
+        <div style="background: rgba(251, 191, 36, 0.04); padding: 25px; border-radius: 12px; margin-top: 35px; border: 1px dashed rgba(251, 191, 36, 0.3);">
+            <p style="font-size: 16px; line-height: 1.6; margin: 0;">
+                投資美國債券優於定存，而定存優於活存。在 IBKR 平台內買賣美國公債完全免手續費，相比國內複委託管道，能幫大額投資人省下極為可觀的交易成本。
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide7">
+    <h2 class="slide-title">推薦開戶：1% 入金紅利回饋機制</h2>
+    <div class="content-area">
+        <table>
+            <thead>
+                <tr>
+                    <th>開戶後 30 天內資產併入 (USD)</th>
+                    <th>可獲得的 IBKR 股票獎勵價值</th>
+                    <th>活動權益</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>$10,000 美金</td>
+                    <td>價值 <strong>$100 美金</strong> 股票</td>
+                    <td>達成 1% 年化回饋門檻</td>
+                </tr>
+                <tr>
+                    <td>$50,000 美金</td>
+                    <td>價值 <strong>$500 美金</strong> 股票</td>
+                    <td>資產出海，享受高利活存</td>
+                </tr>
+                <tr>
+                    <td>$100,000 美金 (及以上)</td>
+                    <td>價值 <strong>$1,000 美金</strong> 股票</td>
+                    <td>獲取本推薦活動之最高獎勵上限</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="margin-top: 25px; font-size: 14px; color: #64748b; line-height: 1.5;">
+            💡 <strong>說明：</strong>每存入 $100 美金即可獲贈 $1 美金的 IBKR 股票（支持現金或股票轉戶形式）。贈送的股票價值會隨帳戶平均餘額動態調整，於帳戶內至少保有滿一年後即可自動解禁自由賣出，相當於多賺 1% 的年報酬率！
+        </p>
+    </div>
+</div>
+
+<div class="slide-container" id="slide8" style="background: linear-gradient(135deg, #0a0f1e 0%, #1e293b 100%); border: 1px solid rgba(251, 191, 36, 0.2);">
+    <div class="title-layout">
+        <h2 style="font-size: 48px; color: #ffffff; margin: 0;">立刻開啟您的全球資產配置</h2>
+        <p style="margin-bottom: 30px; margin-top: 20px;">
+            開戶流程全程支援線上中文介面，僅需約 10 分鐘，新帳戶通常會在 1 至 2 個工作日內快速審核批覆。
+        </p>
+        <a href="https://ibkr.com/referral/yenjung246" class="cta-button" target="_blank">點此使用專屬連結開戶，享開戶優惠 🚀</a>
+        <p style="font-size: 13px; margin-top: 30px; color: #475569;">
+            請多加轉發分享給身邊有海外資產配置、美股、美債投資避險需求的朋友，感謝您！
+        </p>
+    </div>
+</div>
+
+</body>
+</html>
