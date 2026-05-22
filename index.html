@@ -29,15 +29,20 @@
             font-family: "Noto Sans TC", sans-serif;
         }
 
-        body {
-            background-color: var(--uber-gray-light);
-            color: var(--uber-black);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
+  body {
+      background-color: var(--uber-gray-light);
+      color: var(--uber-black);
+      display: flex;
+      justify-content: center;
+    
+      /* 1. 把 center 改成 flex-start，讓卡片從頂部排下來，高度不夠時可以往下滾動 */
+      align-items: flex-start; 
+    
+      min-height: 100vh;
+    
+      /* 2. 增加上方的內邊距（Padding），確保在任何手機上頂部都有安全留白 */
+      padding: 40px 20px; 
+  }
 
         /* 核心卡片容器 */
         .promo-container {
